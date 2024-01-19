@@ -1,0 +1,11 @@
+name: my_model_environment
+dependencies:
+  - python=3.8  
+  - scikit-learn  
+  - pandas  
+  - numpy  
+  - pip:
+    - pickle5  
+
+channels:
+  - defaults

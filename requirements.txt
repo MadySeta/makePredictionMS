@@ -3,4 +3,4 @@ gunicorn
 Werkzeug==2.2.2
 requests
 pandas==2.0.3
-sklearn
+scikit-learn

@@ -32,24 +32,24 @@ def prediction_user():
 @app.route('/predictionUserFollowers', methods=['GET'])
 def prediction_user_followers():
     followers_data = request.get_json()
+    
     all_predictions = []
     all_human_probabilities = []
     all_bot_probabilities = []
 
     for follower_data in followers_data:
-        predictions, probabilities = prediction( follower_data)
-        all_predictions.append(predictions[0])
-        if predictions[0] == 'human':
-            all_human_probabilities.append(probabilities[0][1])
+        result = prediction(follower_data)
+        all_predictions.append(result['prediction'])
+        if result['prediction'] == 'human':
+            all_human_probabilities.append(result['trust_human'])
         else:
-            all_bot_probabilities.append(probabilities[0][0])
+            all_bot_probabilities.append(result['trust_bot'])
 
     result = {
         'all_predictions': all_predictions,
         'all_human_probabilities': all_human_probabilities,
         'all_bot_probabilities': all_bot_probabilities
     }
-
     return jsonify(result)
 
 

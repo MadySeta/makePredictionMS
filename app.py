@@ -8,9 +8,24 @@ app = Flask(__name__)
 model = pickle.load(open('./finalModel/best_rf_model.pkl', 'rb'))
 scaler = pickle.load(open('./finalModel/scaler', 'rb'))
 
+def arrangeFeatures(df : pd.DataFrame):
+    order = ['default_profile', 
+            'default_profile_image',
+            'favourites_count',
+            'followers_count',
+            'friends_count',
+            'geo_enabled',
+            'statuses_count',
+            'verified',
+            'average_tweets_per_day',
+            'account_age_days']
+    return df[order]
+
+
 def prediction(user_data : dict):
     df = pd.DataFrame.from_dict([user_data])
-    scaled_data = scaler.transform(df)
+    df_ordered = arrangeFeatures(df)
+    scaled_data = scaler.transform(df_ordered)
     predictions = model.predict(scaled_data)
     probabilities = model.predict_proba(scaled_data)
 

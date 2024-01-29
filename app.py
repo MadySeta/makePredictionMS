@@ -54,11 +54,15 @@ def prediction_user_followers():
 
     for follower_data in followers_data:
         result = prediction(follower_data)
-        all_predictions.append(result['prediction'])
-        if result['prediction'] == 'human':
+        if result['prediction'] == 'human' and result['trust_human'] >= 0.7:
+            all_predictions.append('human')
             all_human_probabilities.append(result['trust_human'])
-        else:
+        elif result['prediction'] == 'bot' and result['trust_bot'] >= 0.7:
+            print('---- HERE ---- ')
+            all_predictions.append('bot')
             all_bot_probabilities.append(result['trust_bot'])
+        else:
+            all_predictions.append('undefined')
 
     result = {
         'all_predictions': all_predictions,

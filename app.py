@@ -57,7 +57,7 @@ def prediction_user_followers():
         if result['prediction'] == 'human' and result['trust_human'] >= 0.7:
             all_predictions.append('human')
             all_human_probabilities.append(result['trust_human'])
-        elif result['prediction'] == 'bot' and result['trust_bot'] >= 0.7:
+        elif result['prediction'] == 'bot' and result['trust_bot'] >= 0.6:
             print('---- HERE ---- ')
             all_predictions.append('bot')
             all_bot_probabilities.append(result['trust_bot'])
